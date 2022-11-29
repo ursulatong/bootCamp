@@ -1,0 +1,9 @@
+server:
+  port: 8084
+
+
+string-length:
+ max: 
+  helloworld: 4
+ min:
+  helloworld: 2
