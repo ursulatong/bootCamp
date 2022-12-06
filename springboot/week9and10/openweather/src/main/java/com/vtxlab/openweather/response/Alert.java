@@ -1,17 +1,18 @@
-package com.vtxlab.openweather.model;
-
-import java.math.BigDecimal;
+package com.vtxlab.openweather.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+public class Alert {
 
-public class Rain {
+  Integer code;
 
-  private BigDecimal h;
+  String message;
   
 }
