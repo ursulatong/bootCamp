@@ -4,33 +4,47 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.vtxlab.openweather.controller.impl.WeatherController;
 import com.vtxlab.openweather.response.Alert;
 import com.vtxlab.openweather.response.ApiResponse;
+import com.vtxlab.openweather.response.ResponseData;
 import com.vtxlab.openweather.response.enums.ResponseStatus;
+import com.vtxlab.openweather.utils.WeatherApi;
 
 @ControllerAdvice
 public class GlobalExceptionHandler<T> {
   
   @ExceptionHandler({ ApiException.class })
-  public ResponseEntity<ApiResponse<T>> handleApiException(ApiException e) {
-    WeatherController.errAlerts.add(new Alert(e.getCode(), e.getMessage()));
+  /// @org.springframework.web.bind.annotation.ResponseStatus(code =
+  /// HttpStatus.bad)
+  public ResponseEntity<ApiResponse<? extends ResponseData>> handleApiException(
+      ApiException e) {
+    WeatherApi.setAlerts(new Alert(e.getCode(), e.getMessage()));
 
     return ResponseEntity.badRequest()
         .body(
             new ApiResponse<>(ResponseStatus.THIRD_PARTY_API_TIMEOUT.getCode(),
                 ResponseStatus.THIRD_PARTY_API_TIMEOUT.getMessage(), //
-                null,
-                WeatherController.errAlerts));
+                new ResponseData(),
+                WeatherApi.getAlerts()));
   }
 
-  @ExceptionHandler({ NullPointerException.class })
-  public ResponseEntity<ApiResponse<T>> handleNpeException() {
+  @ExceptionHandler({ NullPointerException.class, ArithmeticException.class })
+  public ResponseEntity<ApiResponse<? extends ResponseData>> handleRuntimeException(
+      RuntimeException e) {
+    Integer code = null;
+    String message ="";
+    if (e instanceof NullPointerException) { // instanceof check the object e is in the class 
+      code = ResponseStatus.NPE.getCode();
+    } else if (e instanceof ArithmeticException) {
+      code = ResponseStatus.NPE.getCode();
+      message = ResponseStatus.NPE.getMessage();
+    }
+
     return ResponseEntity.badRequest().body(
-        new ApiResponse<>(ResponseStatus.NPE.getCode(),
-            ResponseStatus.NPE.getMessage(), //
-            null,
-            WeatherController.errAlerts));
+      new ApiResponse<>(code,
+      message,
+      null,
+            WeatherApi.getAlerts()));
   }
 
   /*

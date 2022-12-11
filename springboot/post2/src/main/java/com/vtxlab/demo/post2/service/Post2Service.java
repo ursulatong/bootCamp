@@ -19,7 +19,7 @@ public interface Post2Service {
 
   List<Post2> findPostByTitle(String title);
 
-  // List<PostDto> findPostsByUserId(String userId);
+List<PostDto> findPostsByUserId(String userId);
 
   List<Post2> addNewPost(String title, String content);
 

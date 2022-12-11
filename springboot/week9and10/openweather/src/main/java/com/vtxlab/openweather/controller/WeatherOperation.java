@@ -18,7 +18,8 @@ public interface WeatherOperation {
       @RequestParam(name = "lat") BigDecimal lantitude,
       @RequestParam(name = "lon") BigDecimal longitude) throws Exception;
 
- // @GetMapping (value = "/weather/sys")
-  //WeatherSysDto getWeatherSysDto(@RequestParam BigDecimal lat, @RequestParam BigDecimal lon);
+  
+
+
 
 }

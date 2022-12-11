@@ -33,3 +33,18 @@ spring:
     port: 6379
     password: 
     timeout: 60000
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/sys
+    username: root
+    password: Tong1203!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      schema-locations: classpath:DDL_CURRENTWEATHER.sql
+      mode: always
+spring.jpa:
+  properties.hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+  hibernate.ddl-auto: update
+  show-sql: true
+

@@ -13,6 +13,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class RestTemplateConfig {
+//資源池,根據實際情況調整參數,令到資源運用得最好
+
   // max no. of connections
   @Value("${rest.conn-mgr.connection.max-total:100}")
   int maxTotal;

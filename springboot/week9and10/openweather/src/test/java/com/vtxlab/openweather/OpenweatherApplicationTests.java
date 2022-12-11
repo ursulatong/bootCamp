@@ -3,10 +3,10 @@ package com.vtxlab.openweather;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class OpenweatherApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 	}
 

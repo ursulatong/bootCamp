@@ -2,8 +2,6 @@ package com.vtxlab.openweather.response;
 
 import java.util.List;
 
-import com.vtxlab.openweather.exceptions.ApiException;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

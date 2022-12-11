@@ -39,9 +39,6 @@ public class WeatherController implements WeatherOperation {
     CurrentWeatherResponse currentWeatherResponse = openWeatherService
         .getCurrentWeather(lantitude, longitude);
 
-    if (currentWeatherResponse == null) {
-      log.info("it is null");
-    }
 
     Integer responseCode = currentWeatherResponse.getCode() == 200 ? //
         ResponseStatus.OK.getCode()

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class CloudIndex implements Serializable{
+public class CloudIndex implements Serializable{ // need to implement serializable to cope with redis
 
   /**
    * Cloudiness %

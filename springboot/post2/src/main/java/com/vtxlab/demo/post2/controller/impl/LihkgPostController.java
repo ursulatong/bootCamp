@@ -85,13 +85,13 @@ public class LihkgPostController implements Post2Operation {
     return ResponseEntity.ok().body(response);
   }
 
-  // @Override
-  // public ResponseEntity<ApiResponse<UserDto>> findPostByUserID(String userId) {
-  //   List<PostDto> postDtos = postService.findPostsByUserId(userId);
-  //   UserDto userDto = UserDto.builder()
-  //       .userId(userId)
-  //       .posts(postDtos)
-  //       .build();
+   @Override
+  public ResponseEntity<ApiResponse<UserDto>> findPostByUserID(String userId) {
+  List<PostDto> postDtos = postService.findPostsByUserId(userId);
+  UserDto userDto = UserDto.builder()
+ .userId(userId)
+  .posts(postDtos)
+.build();
 
   // ApiResponse<UserDto> response = ApiResponse.<UserDto>builder()
   //       .code(HttpStatus.OK.value())
