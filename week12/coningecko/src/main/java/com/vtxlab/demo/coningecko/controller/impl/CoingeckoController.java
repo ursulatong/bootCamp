@@ -1,5 +1,6 @@
 package com.vtxlab.demo.coningecko.controller.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vtxlab.demo.coningecko.controller.CoingeckoOperations;
 import com.vtxlab.demo.coningecko.exception.ApiException;
+import com.vtxlab.demo.coningecko.model.CoinsCurrency;
 import com.vtxlab.demo.coningecko.model.CoinsMarket;
 import com.vtxlab.demo.coningecko.service.ConingeckoService;
 
@@ -29,7 +31,16 @@ public class CoingeckoController implements CoingeckoOperations {
     List<CoinsMarket> coinsMarkets = coningeckoService.getAllCoinsMarket();
     log.info("start Controller");
     return coinsMarkets;
+  }
 
+   public HashMap<String, CoinsCurrency> getCoinsPrices(List<String> ids, List<String> currencies) throws ApiException{
+
+    log.info("start Controller");
+    HashMap<String, CoinsCurrency> coinsPrice = coningeckoService.getCoinsPrices(ids, currencies);
+    log.info("start Controller");
+    return coinsPrice;
+
+    
   }
 
 }

@@ -8,10 +8,10 @@
 		<version>3.0.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.vtxlab.demo</groupId>
-	<artifactId>coningecko</artifactId>
+	<groupId>com.vtxlab.crypto</groupId>
+	<artifactId>vtxlab.crypto.coingecko</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>coningecko</name>
+	<name>vtxlab-crypto-coingecko</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
