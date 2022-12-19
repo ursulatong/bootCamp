@@ -1,5 +1,6 @@
 package com.vtxlab.crypto.polygon.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -7,19 +8,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 
-public class CoinExchange {
+public class CoinExchange implements Serializable{
 
   private String ticker;
   private BigDecimal queryCount;
   private BigDecimal resultsCount;
   private Boolean adjusted;
-  private List<Results> results;
+  private List<ExchangeResult> exchangeResults;
   private String status;
   @JsonProperty (value = "request_id")
   private String requestid;
@@ -38,7 +41,7 @@ public class CoinExchange {
   @Data
   @AllArgsConstructor
   @NoArgsConstructor
-  public static class Results {
+  public static class ExchangeResult implements Serializable{
 
     @JsonProperty (value = "T")
     private String ticker;

@@ -45,4 +45,13 @@ public class Authors {
   @JsonIgnoreProperties({ "author" })
   private List<Books> books;
 
+  public void addBook(Books book) {
+    this.books.add(book);
+  }
+
+  public Authors(Long id, String authorName, String nationality) {
+    this.id = id;
+    this.authorName = authorName;
+    this.nationality = nationality;
+  }
 }

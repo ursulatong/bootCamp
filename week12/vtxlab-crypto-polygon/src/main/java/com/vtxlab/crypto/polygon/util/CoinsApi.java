@@ -1,5 +1,8 @@
 package com.vtxlab.crypto.polygon.util;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.vtxlab.crypto.polygon.exception.ApiException;
 import com.vtxlab.crypto.polygon.model.CoinExchange;
 import com.vtxlab.crypto.polygon.model.dto.ChannelDto;
-import com.vtxlab.crypto.polygon.model.dto.ChannelDto.ExchangeRate;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,34 +27,33 @@ public class CoinsApi {
   RestTemplate restTemplate;
 
   public static List<ChannelDto.ExchangeRate> map(
-      List<CoinExchange> coinsExchange) {
+      List<CoinExchange> coinExchanges) {
 
-  List<ChannelDto.ExchangeRate> exchangeRates = new ArrayList<>();
+    List<ChannelDto.ExchangeRate> exchangeRates = new ArrayList<>();
 
-  for(CoinExchange coinExchange : coinExchanges)  {
-    // Set Crypto to USD
-    ExchangeRate exchangeRate = new ChannelDto().new ExchangeRate();
-    exchangeRate.setFromCurr(coinExchange.getTickerCryptoString()); //BTC
-    exchangeRate.setToCurr(coinExchange.getTickerCryptoString()); // USD
-    exchangeRate.setRate(entry.getValue().getUsd());  
-    exchangeRates.add(exchangeRate);
-
-    // Set the rate for "Currency to Crypto"
-    exchangeRate = new ChannelDto().new ExchangeRate();
-    exchangeRate.setFromCurr("USD");
-    exchangeRate.setToCurr(entry.getKey());
-    exchangeRate.setRate(BigDecimal.ONE.divide(entry.getValue().getUsd(),
-        new MathContext(6, RoundingMode.HALF_UP)));
-    exchangeRates.add(exchangeRate);
-    // Set HKD to Crypto
-    exchangeRate = new ChannelDto().new ExchangeRate();
-    exchangeRate.setFromCurr("HKD");
-    exchangeRate.setToCurr(entry.getKey());
-    exchangeRate.setRate(BigDecimal.ONE.divide(entry.getValue().getHkd(),
-        new MathContext(6, RoundingMode.HALF_UP)));
-    exchangeRates.add(exchangeRate);
-  }return exchangeRates;
+    for (CoinExchange coinExchange : coinExchanges) {
+      // Set the rate for "Crypto to Currency"
+      ChannelDto.ExchangeRate exchangeRate = new ChannelDto()
+        .buildExchangeRate();
+      exchangeRate.setFromCurr(coinExchange.getTickerCryptoString()); // BTC
+      exchangeRate.setToCurr(coinExchange.getTickerCurrencyString()); // USD
+      exchangeRate
+          .setRate(coinExchange.getExchangeResults().get(0).getHighestPrice()); // TBC
+      exchangeRates.add(exchangeRate);
+      // Set the rate for "Currency to Crypto"
+      exchangeRate = new ChannelDto().buildExchangeRate();
+      exchangeRate.setFromCurr(coinExchange.getTickerCurrencyString());
+      exchangeRate.setToCurr(coinExchange.getTickerCryptoString());
+      exchangeRate.setRate(
+          BigDecimal.ONE.divide(
+              coinExchange.getExchangeResults().get(0).getHighestPrice(), // TBC
+              new MathContext(6, RoundingMode.HALF_UP)));
+      exchangeRates.add(exchangeRate);
+    }
+    return exchangeRates;
   }
+  
+
 
   public <T> T invoke(String baseUrl,
       String serviceVers,

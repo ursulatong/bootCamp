@@ -17,7 +17,8 @@ import jakarta.websocket.server.PathParam;
 public interface PolygonOperation {
 
   @GetMapping(value = "/price")
-   ChannelDto getExchangeRate(values = "coins" @RequestParam List<String> cryptos, 
+   ChannelDto getExchangeRate(
+       @RequestParam (value = "coins")  List<String> cryptos, 
    @RequestParam List<String> currencies) throws ApiException;
 
   

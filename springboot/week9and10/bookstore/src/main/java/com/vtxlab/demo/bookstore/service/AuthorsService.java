@@ -6,10 +6,8 @@ import com.vtxlab.demo.bookstore.entity.Authors;
 
 public interface AuthorsService {
 
-  List<Authors> findAll();
+  List<Authors> findAllAuthors();
 
   void deleteAuthor(Long id);
-
-  Authors addAuthors(Authors author);
 
 }

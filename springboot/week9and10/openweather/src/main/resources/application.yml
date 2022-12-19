@@ -39,12 +39,6 @@ spring:
     username: root
     password: Tong1203!
     driver-class-name: com.mysql.cj.jdbc.Driver
-  sql:
-    init:
-      schema-locations: classpath:DDL_CURRENTWEATHER.sql
-      mode: always
-spring.jpa:
-  properties.hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
-  hibernate.ddl-auto: update
-  show-sql: true
+
+
 

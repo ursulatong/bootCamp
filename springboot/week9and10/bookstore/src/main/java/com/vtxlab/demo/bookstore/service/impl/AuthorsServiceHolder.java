@@ -16,9 +16,8 @@ public class AuthorsServiceHolder implements AuthorsService {
              // 自動裝配唔成功都complie到)
   AuthorsRepository authorsRepository;
 
-  @Override
-  public List<Authors> findAll() {
-    return authorsRepository.findAll();
+  private Boolean existById(Long id) {
+    return authorsRepository.existsById(id);
   }
 
   @Override
@@ -29,12 +28,9 @@ public class AuthorsServiceHolder implements AuthorsService {
     return;
   }
 
-  private boolean existById(Long id) {
-    return authorsRepository.existsById(id);
+  @Override
+  public List<Authors> findAllAuthors() {
+    return authorsRepository.findAll();
   }
 
-  @Override
-  public Authors addAuthors(Authors author) {
-    return authorsRepository.save(author);
-  }
 }

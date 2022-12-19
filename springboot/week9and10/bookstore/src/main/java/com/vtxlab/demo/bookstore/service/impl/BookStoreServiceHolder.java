@@ -10,60 +10,70 @@ import com.vtxlab.demo.bookstore.entity.Books;
 import com.vtxlab.demo.bookstore.repository.BooksRepository;
 import com.vtxlab.demo.bookstore.service.BooksService;
 
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class BookStoreServiceHolder implements BooksService {
 
   @Autowired
-  BooksRepository booksRepository;
+  BooksRepository bookRepository;
 
   @Override
-  public List<Books> findAll() {
-    return booksRepository.findAll();
+  public List<Books> findAllBooks() {
+    return bookRepository.findAll();
   }
 
   @Override
-  public Optional<Books> findById(Long id) {
-    return booksRepository.findById(id);
-
+  public Optional<Books> findBookById(Long id) {
+    return bookRepository.findById(id);
   }
 
-  // @Override
-  // public void createBooks(Books book) {
-  // booksRepository.createBooks(book.getAuthorName(), book.getBookName(),
-  // book.getPublicationDate());
-  // }
-
   @Override
-  public Books createBooks(Books book) {
-    if (!booksRepository.existsById(book.getId())) {
-      return booksRepository.save(book);
+  public Books createBook(Books book) {
+    if (!bookRepository.existsById(book.getId())) {
+      return bookRepository.save(book);
     }
     return null;
   }
 
-//  @Override
- // public Books deleteBooksById(Long id) {
-   // Books book = booksRepository.findById(id).get();
-    //if (book != null) {
-      //booksRepository.deleteById(id);
-      //return booksRepository.save(book);
-    //}
-    //return null;
-  //}
+  @Override
+  public Books deleteBookById(Long id) {
+    if (bookRepository.existsById(id)) {
+      Books book = findBookById(id).orElse(null);
+      bookRepository.deleteById(id);
+      return book;
+    }
+    return null;
+  }
 
   @Override
   public Books updateBookById(Books book, Long id) {
     book.setId(id);
-    return booksRepository.save(book);
+    return bookRepository.save(book);
   }
 
   @Override
-  public Books updateBookNameById(Long id, String bookName) {
-    Books book = booksRepository.findById(id).orElse(null); // orElse handle optional, avoid to get NPE
-    if (book != null) {
+  public Books updateBookName(Long id, String bookName) {
+    if (bookRepository.existsById(id)) {
+      Books book = bookRepository.findById(id).orElse(null);
       book.setBookName(bookName);
-      return booksRepository.save(book);
+      return bookRepository.save(book);
     }
     return null;
+  }
+
+  @Override
+  public Boolean deleteBooksByAuthorId(Long authorId) {
+    Integer bookCount = bookRepository.findBooksByAuthorId(authorId);
+    log.info("bookCount={} ", bookCount);
+
+    if (bookCount > 0) {
+      bookRepository.deleteBooksByAuthorId(authorId);
+      return true;
+    }
+    return false;
   }
 }

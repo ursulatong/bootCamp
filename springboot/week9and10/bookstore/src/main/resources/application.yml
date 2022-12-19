@@ -18,9 +18,5 @@ spring.jpa:
   show-sql: true
 
 
-rest: 
-  greeting:
-    baseUrl: http://localhost:8090
-    serviceVers: api/v1
-    serviceUrl: greeting
+
 

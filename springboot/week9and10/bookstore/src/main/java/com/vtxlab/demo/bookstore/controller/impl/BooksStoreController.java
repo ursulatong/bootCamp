@@ -29,75 +29,60 @@ public class BooksStoreController implements BooksOperation {
   BooksService booksService;
 
   @Override
-  public ResponseEntity<ApiResponse<List<Books>>> findAll() {
-    ApiResponse<List<Books>> response = ApiResponse.<List<Books>>builder()
-        .code(HttpStatus.OK.value())// 200
-        .message("OK")
-        .data(booksService.findAll())
-        .build();
-    return ResponseEntity.ok().body(response); // 200 https status if book(s) is found
+  public List<Books> findAllBooks() {
+    return booksService.findAllBooks();
   }
 
-
   @Override
-  public ResponseEntity<Books> findById(Long id) {
-
-    Books book = booksService.findById(id).orElse(null);
-    if (book != null) {
-      booksService.findById(id);
-      return ResponseEntity.ok().body(book); // 200 https status if book(s) is found, 204 https status if not found
-    } else {
-      // log.info("find by id return false");
-
+  public ResponseEntity<Books> findBookById(Long id) {
+    // return bookService.findBookById(id).orElse(null);
+    Optional<Books> oBook = booksService.findBookById(id);
+    if (oBook.isPresent()) {
+      return ResponseEntity.ok().body(oBook.get()); //
     }
     return ResponseEntity.noContent().build();
   }
 
   @Override
-  public ResponseEntity<Books> createBooks(Books book) {
+  public ResponseEntity<Books> createBook(Books book) {
     URI location = ServletUriComponentsBuilder
         .fromCurrentRequest()
         .buildAndExpand()
         .toUri();
 
-    Books myBook = booksService.createBooks(book);
-    if (myBook != null) {
-      return ResponseEntity.created(location).body(myBook);  //201
+    Books rtnBook = booksService.createBook(book);
+    if (rtnBook != null) {
+      return ResponseEntity.created(location).body(rtnBook); // 201
     }
     return ResponseEntity.noContent().build();
-
   }
 
-  //@Override
-  //public ResponseEntity<Books> deleteBooksById(Long id) {
-
-    //Optional<Books> resultBook = booksService.findById(id);
-    //Books book = (resultBook==null) ? null : booksService.findById(id).orElse(null);
-    //if (book != null) {
-     // booksService.deleteBooksById(id);
-      //return ResponseEntity.ok().body(book);
-    //}
-    //return ResponseEntity.noContent().build();
-  //}
-
+  @Override
+  public ResponseEntity<Books> deleteBookByid(Long id) {
+    Books rtnBook = booksService.deleteBookById(id);
+    if (rtnBook != null) {
+      return ResponseEntity.ok().body(rtnBook); // 200
+    }
+    return ResponseEntity.noContent().build();
+  }
 
   @Override
   public ResponseEntity<Books> updateBook(Books book, Long id) {
-
-    Books myBook = booksService.updateBookById(book, id);
-    return ResponseEntity.ok().body(myBook);
+    Books updatedBook = booksService.updateBookById(book, id);
+    return ResponseEntity.ok().body(updatedBook);
   }
 
+  @Override
+  public ResponseEntity<Books> updateBookName(Long id, String bookName) {
+    Books updatedBook = booksService.updateBookName(id, bookName);
+    if (updatedBook == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok().body(updatedBook);
+  }
 
   @Override
-  public ResponseEntity<Books> updateBookNameById(Long id, String bookName) {
-
-    Books book = booksService.findById(id).orElse(null);
-    // if (booksService.findById(id).isPresent()) {
-    if (book != null) {
-      booksService.updateBookNameById(id, bookName);
-      return ResponseEntity.ok().body(book);
-    }
-    return ResponseEntity.noContent().build();
+  public ResponseEntity<Boolean> deleteBookByAuthorId(Long id) {
+    return ResponseEntity.ok().body(booksService.deleteBooksByAuthorId(id));
   }
 }

@@ -17,4 +17,10 @@ spring.jpa:
   hibernate.ddl-auto: update
   show-sql: true
 
+rest:
+  greeting:
+    baseUrl: http://localhost:8099
+    serviceVers: api/v1
+    serviceUrl: greeting
+
 

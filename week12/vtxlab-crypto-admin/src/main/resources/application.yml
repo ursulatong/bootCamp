@@ -1,0 +1,19 @@
+Server: 
+  port: 8087
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/sys
+    username: root
+    password: Tong1203!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      schema-locations: classpath:DDL_CHANNELS_COIN_MAPPINGS.sql, classpath:DDL_CHANNELS_TRANS.sql, classpath:DDL_CHANNELS.sql
+      data-locations:  classpath:DML_CHANNELS_COIN_MAPPINGS.sql, classpath:DML_CHANNELS_TRANS.sql, classpath:DML_CHANNELS.sql
+      mode: always
+spring.jpa:
+  properties.hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+  hibernate.ddl-auto: update
+  show-sql: true 

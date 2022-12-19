@@ -16,6 +16,10 @@ public class ChannelDto {
 
   List<ExchangeRate> exchangeRates;
 
+  public ExchangeRate buildExchangeRate() {
+    return new ExchangeRate();
+  }
+
 
   @Data
   public static class ExchangeRate {

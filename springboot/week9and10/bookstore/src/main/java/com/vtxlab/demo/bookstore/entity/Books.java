@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /*Sample: List of Book 
 [
@@ -45,7 +46,7 @@ public class Books {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY) // create AUTO_INCREMENT
   @Column(name = "ID")
-  private long id; // primary key
+  private Long id; // primary key
 
   @Column(name = "BOOK_NAME") // map database
   private String bookName; // map user
@@ -53,10 +54,17 @@ public class Books {
   @Column(name = "PUBLIC_DATE")
   private LocalDate publicationDate;
 
-  @ManyToOne(cascade = CascadeType.ALL) // associated with the author class variable
+ // @ToString.Exclude
+  @ManyToOne // associated with the author class variable
   @JoinColumn(name = "AUTHOR_ID") // references the mapped column
   @JsonIgnoreProperties("books")
   private Authors author;
+
+  public Books(Long id, String bookName, LocalDate publicationDate) {
+    this.id = id;
+    this.bookName = bookName;
+    this.publicationDate = publicationDate;
+  }
 
   
 }

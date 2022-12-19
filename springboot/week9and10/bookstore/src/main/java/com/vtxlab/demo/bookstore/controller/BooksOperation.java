@@ -27,26 +27,27 @@ import com.vtxlab.demo.bookstore.response.ApiResponse;
 @RequestMapping(value = "/default")
 public interface BooksOperation {
 
-  @GetMapping(value = "/bookstore/books")
-  ResponseEntity<ApiResponse<List<Books>>> findAll();
+   @GetMapping(value = "/books")
+    List<Books> findAllBooks();
 
-  @GetMapping(value = "/bookstore/book/id/{id}")
-  ResponseEntity<Books> findById(@PathVariable Long id);
+    @GetMapping(value = "/book/id/{id}")
+    ResponseEntity<Books> findBookById(@PathVariable Long id);
 
-  // @PostMapping(value = "/bookstore/book/id")
-  // ResponseEntity<ApiResponse<Void>> createBooks(UriComponentsBuilder
-  // uriComponentsBuilder, @RequestBody Books book);
+    @PostMapping(value = "/book")
+    ResponseEntity<Books> createBook(@RequestBody Books book);
 
-  @PostMapping(value = "/bookstore/book/id")
-  ResponseEntity<Books> createBooks(@RequestBody Books book);
+    @DeleteMapping(value = "/book/id/{id}")
+    ResponseEntity<Books> deleteBookByid(@PathVariable Long id);
 
- // @DeleteMapping(value = "/bookstore/book/id/{id}")
-  //ResponseEntity<Books> deleteBooksById(@PathVariable Long id);
+    @PutMapping(value = "/book/id/{id}")
+    ResponseEntity<Books> updateBook(@RequestBody Books book,
+            @PathVariable Long id);
 
-  @PutMapping(value = "/bookstore/book/id/{id}")
-  ResponseEntity<Books> updateBook(@RequestBody Books book, @PathVariable Long id);
+    @PatchMapping(value = "/book/id/{id}/name/{bookName}")
+    ResponseEntity<Books> updateBookName(@PathVariable Long id,
+            @PathVariable String bookName);
 
-  @PatchMapping(value = "/bookstore/book/id/{id}/bookname/{bookName}")
-  ResponseEntity<Books> updateBookNameById(@PathVariable Long id, @PathVariable String bookName);
-
+    @DeleteMapping(value = "/book/author/id/{id}")
+    ResponseEntity<Boolean> deleteBookByAuthorId(@PathVariable Long id);
 }
+

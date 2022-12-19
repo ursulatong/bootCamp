@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vtxlab.crypto.polygon.controller.PolygonOperation;
 import com.vtxlab.crypto.polygon.exception.ApiException;
 import com.vtxlab.crypto.polygon.model.CoinExchange;
+import com.vtxlab.crypto.polygon.model.dto.ChannelDto;
 import com.vtxlab.crypto.polygon.service.PolygonService;
+import com.vtxlab.crypto.polygon.util.CoinsApi;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,11 +25,12 @@ public class PolygonController implements PolygonOperation {
   @Autowired
   PolygonService polygonService;
 
-  public CoinExchange getCrypto(@PathVariable String ticker) throws ApiException {
+  public ChannelDto getExchangeRate(List<String> cryptos, List<String> currencies) throws ApiException {
     log.info("start Controller");
-    CoinExchange polygonModel = polygonService.getCrypto(ticker);
-    log.info("start Controller");
-    return polygonModel;
+
+    return ChannelDto.builder().exchangeRates (
+    CoinsApi.map(polygonService.getCoinExchangeList(cryptos, currencies)))
+        .build();
   }
 
   }

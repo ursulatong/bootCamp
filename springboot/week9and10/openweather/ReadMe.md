@@ -11,5 +11,7 @@ retrieve data: by calling openweathermap API https://openweathermap.org/current
 URL
 http://localhost:8091/api/v1/weather?lat=22.302711&lon=114.177216
 
+start redis by redis-server
+
 
 

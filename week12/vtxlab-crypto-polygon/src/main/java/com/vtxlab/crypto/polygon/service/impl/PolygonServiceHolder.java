@@ -13,7 +13,6 @@ import com.vtxlab.crypto.polygon.model.CoinExchange;
 import com.vtxlab.crypto.polygon.service.PolygonService;
 import com.vtxlab.crypto.polygon.util.CoinsApi;
 
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -27,13 +26,13 @@ public class PolygonServiceHolder implements PolygonService {
   @Value("${polygon.baseUrl}")
   String baseUrl;
 
-  @Value("${polygon.service.previous.serviceVers}")
+  @Value("${polygon.serviceVers}")
   String serviceVers;
 
-  @Value("${service.polygon.serviceUrl}")
+  @Value("${polygon.service.previous.serviceUrl}")
   String serviceUrl;
 
-  @Value("${service.apiKey}")
+  @Value("${polygon.apiKey}")
   String apiKey;
 
   @Value("${polygon.service.previous.adjusted}")

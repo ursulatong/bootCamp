@@ -7,16 +7,19 @@ import com.vtxlab.demo.bookstore.entity.Books;
 
 public interface BooksService {
 
-  List<Books> findAll(); // find all books
+  List<Books> findAllBooks();
 
-  Optional<Books> findById(Long id); // find books details by book id
+  Optional<Books> findBookById(Long id);
 
-  Books createBooks(Books book); // create books
+  Books createBook(Books book);
 
- // Books deleteBooksById(Long id);
+  Books deleteBookById(Long id);
 
   Books updateBookById(Books book, Long id);
 
-  Books updateBookNameById(Long id, String bookName);
+  Books updateBookName(Long id, String bookName);
 
+  Boolean deleteBooksByAuthorId(Long authorId);
 }
+
+

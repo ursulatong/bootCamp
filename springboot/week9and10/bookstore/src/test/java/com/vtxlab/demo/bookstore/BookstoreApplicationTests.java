@@ -3,11 +3,11 @@ package com.vtxlab.demo.bookstore;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 
 public class BookstoreApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 
 	}
